@@ -330,9 +330,9 @@ tabe, th, td {
 						var contractCell = row.cells[19];
 						var contractData = (res.contractstorage/1000/1000/1000/1000).toFixed(2)
 						contractCell.innerHTML = contractData;
-						// If the Server has more that 100TB of contract data set it to yellow
+						// If the Server has more that 100TB of contract data set it to orange
 						if (contractData > 100) {
-							contractCell.style.color = 'yellow'
+							contractCell.style.color = 'orange'
 						}
 					}
 
@@ -364,8 +364,9 @@ tabe, th, td {
 						var repairCell = row.cells[23];
 						var repairData = (res.repair/1000/1000/1000/1000).toFixed(2)
 						repairCell.innerHTML = repairData;
+						// If the Server has more that 1TB of repair data set it to orange
 						if (repairData > 1) {
-							repairCell.style.color = 'yellow'
+							repairCell.style.color = 'orange'
 						}
 					}
 
