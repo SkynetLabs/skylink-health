@@ -12,6 +12,7 @@ tabe, th, td {
 	</head>
 
 	<body>
+		<!-- Define Table Columns -->
 		<table id="serverStats">
 			<tr>
 				<th>Name</th>
@@ -44,20 +45,19 @@ tabe, th, td {
 		</table>
 
 		<script>
-			// Fill out the table with no data.
+			// Define the servers
 			const serverNames=[	
 						'as-hk-1',
-						'us-pa-1',
-						'us-pa-2',
-						'us-va-1',
-						'us-va-2',
-						'us-va-3',
-						'us-or-1',
-						'us-or-2',
 						'eu-fin-1',
 						'eu-fin-2',
 						'eu-fin-3',
 						'eu-fin-4',
+						'eu-fin-5',
+						'eu-fin-6',
+						'eu-fin-7',
+						'eu-fin-8',
+						'eu-fin-9',
+						'eu-fin-10',
 						'eu-ger-1',
 						'eu-ger-2',
 						'eu-ger-3',
@@ -66,10 +66,29 @@ tabe, th, td {
 						'eu-ger-6',
 						'eu-ger-7',
 						'eu-ger-8',
+						'eu-ger-9',
+						'eu-ger-10',
+						'eu-ger-11',
+						'eu-ger-12',
 						'eu-pol-1',
 						'eu-pol-2',
-						'eu-pol-3'
+						'eu-pol-3',
+						'eu-pol-4',
+						'eu-pol-5',
+						'us-la-1',
+						'us-la-2',
+						'us-la-3',
+						'us-ny-1',
+						'us-ny-2',
+						'us-or-1',
+						'us-or-2',
+						'us-pa-1',
+						'us-pa-2',
+						'us-va-1',
+						'us-va-2',
+						'us-va-3'
 					];
+			// Fill out the table with no data.
 			for (let i=0; i<serverNames.length; i++) {
 					var table = document.getElementById('serverStats');
 					var row = table.insertRow(i+1);
@@ -316,7 +335,12 @@ tabe, th, td {
 					// Set the total contract data for the server.
 					if (res.contractstorage !== undefined) {
 						var contractCell = row.cells[19];
-						contractCell.innerHTML = (res.contractstorage/1000/1000/1000/1000).toFixed(2);
+						var contractData = (res.contractstorage/1000/1000/1000/1000).toFixed(2)
+						contractCell.innerHTML = contractData;
+						// If the Server has more that 100TB of contract data set it to yellow
+						if (contractData > 100) {
+							contractCell.style.color = 'yellow'
+						}
 					}
 
 					// Set the wallet health string.
@@ -345,7 +369,11 @@ tabe, th, td {
 					// Set the repair value.
 					if (res.repair !== undefined) {
 						var repairCell = row.cells[23];
-						repairCell.innerHTML = (res.repair/1000/1000/1000/1000).toFixed(2);
+						var repairData = (res.repair/1000/1000/1000/1000).toFixed(2)
+						repairCell.innerHTML = repairData;
+						if (repairData > 1) {
+							repairCell.style.color = 'yellow'
+						}
 					}
 
 					// Set the stuck chunks value.
