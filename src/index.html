@@ -347,17 +347,26 @@ tabe, th, td {
 					if (res.walletstatus) {
 						var walletCell = row.cells[20];
 						walletCell.innerHTML = res.walletstatus;
+                        			if (res.walletstatus == 'healthy') {
+						    walletCell.style.color = 'green';
+                    				} else if (res.walletstatus == 'low') {
+						    walletCell.style.color = 'red';
+                    				} else if (res.walletstatus == 'locked') {
+						    walletCell.style.color = 'orange';
+                				}
 					}
 
 					// Set the allowance health string.
 					if (res.allowancestatus) {
 						var allowanceCell = row.cells[21];
 						allowanceCell.innerHTML = res.allowancestatus;
-                        if (res.allowancestatus == 'high') {
+                        			if (res.allowancestatus == 'high') {
 						    allowanceCell.style.color = 'orange';
-                        } else if (res.allowancestatus == 'low') {
+                    				} else if (res.allowancestatus == 'low') {
 						    allowanceCell.style.color = 'red';
-                        }
+                    				} else if (res.allowancestatus == 'healthy') {
+						    allowanceCell.style.color = 'green';
+                				}
 					}
 
 					// Set the max storage price cell
