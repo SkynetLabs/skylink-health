@@ -323,6 +323,14 @@ tabe, th, td {
 					if (res.numfiles !== undefined) {
 						var filesCell = row.cells[17];
 						filesCell.innerHTML = res.numfiles;
+						if (res.numfiles >= 1500000) {
+							// Color red if over 1.5 million
+							filesCell.style.color = 'red'
+						} else if (res.numfiles > 1000000) {
+							// Color orange if over 1 million
+							filesCell.style.color = 'orange'
+						}
+						
 					}
 
 					// Set the amount of storage on the server.
