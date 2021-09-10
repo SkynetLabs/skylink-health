@@ -47,9 +47,11 @@ tabe, th, td {
 		<script>
 			// Define the servers
 			const serverNames=[	
+						'Asia Zone',
 						'as-hk-1',
 						'as-sp-1',
 						'as-sp-2',
+						'EU Zone',
 						'eu-fin-1',
 						'eu-fin-2',
 						'eu-fin-3',
@@ -77,13 +79,9 @@ tabe, th, td {
 						'eu-pol-3',
 						'eu-pol-4',
 						'eu-pol-5',
-						'us-la-1',
-						'us-la-2',
-						'us-la-3',
+						'US East Zone',
 						'us-ny-1',
 						'us-ny-2',
-						'us-or-1',
-						'us-or-2',
 						'us-pa-1',
 						'us-pa-2',
 						'us-va-1',
@@ -91,7 +89,13 @@ tabe, th, td {
 						'us-va-3',
 						'us-va-4',
 						'us-va-5',
-						'us-va-6'
+						'us-va-6',
+						'US West Zone',
+						'us-la-1',
+						'us-la-2',
+						'us-la-3',
+						'us-or-1',
+						'us-or-2'
 					];
 			// Fill out the table with no data.
 			for (let i=0; i<serverNames.length; i++) {
@@ -130,11 +134,16 @@ tabe, th, td {
 
 			// Fill out the lb information.
 			for (let i=0; i<serverNames.length; i++) {
+				// Skip Zone Rows
+				if (serverNames[i].includes("Zone")) {
+					continue;
+				}
+				
 				url = 'https://'+serverNames[i]+'.siasky.net/health-check?nocache=true'
 				fetch(url)
 				.then(res=>{
-                    var row = table.rows[i+1];
-                    var activeCell = row.cells[3];
+                    			var row = table.rows[i+1];
+                    			var activeCell = row.cells[3];
 
 					// Set the active cell.
 					if (res.status > 200) {
@@ -149,7 +158,7 @@ tabe, th, td {
 				.then(res => res.json())
 				.then(res=>{
 					var row = table.rows[i+1];
-                    var accountCell = row.cells[4];
+                    			var accountCell = row.cells[4];
 
 					// Set the account cell.
 					if (res.entry && res.entry.checks !== undefined) {
