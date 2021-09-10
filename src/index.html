@@ -4,7 +4,7 @@
 		<title>Skynet Server Dashboard</title>
 
 <style>
-tabe, th, td {
+table, th, td {
 	border: 1px solid black;
 }
 </style>
@@ -40,7 +40,7 @@ tabe, th, td {
 				<th>Max Storage Price (/TB/Mo)</th>
 				<th>Repair (TB)</th>
 				<th>Stuck Chunks</th>
-                <th>Uptime</th>
+                		<th>Uptime</th>
 			</tr>
 		</table>
 
@@ -104,6 +104,7 @@ tabe, th, td {
 					// Stop here for Zone Rows
 					if (serverNames[i].includes("Zone")) {
 						row.innerHTML = serverNames[i];
+						
 						continue;
 					}
 					var cell1 = row.insertCell(0);
