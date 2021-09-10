@@ -104,7 +104,7 @@ table, th, td {
 					// Stop here for Zone Rows
 					if (serverNames[i].includes("Zone")) {
 						row.innerHTML = serverNames[i];
-						
+						row.style.width = '25%';	
 						continue;
 					}
 					var cell1 = row.insertCell(0);
