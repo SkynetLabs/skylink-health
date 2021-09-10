@@ -101,14 +101,15 @@ table, th, td {
 			for (let i=0; i<serverNames.length; i++) {
 					var table = document.getElementById('serverStats');
 					var row = table.insertRow(i+1);
-					// Stop here for Zone Rows
-					if (serverNames[i].includes("Zone")) {
-						row.innerHTML = serverNames[i];
-						row.style.width = '100px';	
-						continue;
-					}
 					var cell1 = row.insertCell(0);
 					cell1.innerHTML = serverNames[i];
+					// Stop here for Zone Rows
+					if (serverNames[i].includes("Zone")) {
+						cell1.style.display = "inline-block";	
+						cell1.style.width = "100px";	
+						cell1.style.border = "none";	
+						continue;
+					}
 					row.insertCell(1);
 					row.insertCell(2);
 					row.insertCell(3);
