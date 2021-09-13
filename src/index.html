@@ -95,7 +95,13 @@ table, th, td {
 						'us-la-2',
 						'us-la-3',
 						'us-or-1',
-						'us-or-2'
+						'us-or-2',
+						'Dev Servers',
+						'siasky.xyz',
+						'dev1',
+						'dev2',
+						'dev3',
+						'crap'
 					];
 			// Fill out the table with no data.
 			for (let i=0; i<serverNames.length; i++) {
@@ -142,11 +148,19 @@ table, th, td {
 			// Fill out the lb information.
 			for (let i=0; i<serverNames.length; i++) {
 				// Skip Zone Rows
-				if (serverNames[i].includes("Zone")) {
+				if (serverNames[i].includes("Zone") || serverNames[i].includes("Dev Servers")) {
 					continue;
 				}
-				
+				// Prod servers and crap server use siasky.net	
 				url = 'https://'+serverNames[i]+'.siasky.net/health-check?nocache=true'
+				// Update for Dev Servers
+				if (serverNames[i].includes("dev")) {
+					url = 'https://'+serverNames[i]+'.siasky.dev/health-check?nocache=true'
+				}
+				// Handle xyz server
+				if (serverNames[i].includes("xyz")) {
+					url = 'https://siasky.xyz/health-check?nocache=true'
+				}
 				fetch(url)
 				.then(res=>{
                     			var row = table.rows[i+1];
