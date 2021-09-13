@@ -152,15 +152,16 @@ table, th, td {
 					continue;
 				}
 				// Prod servers and crap server use siasky.net	
-				url = 'https://'+serverNames[i]+'.siasky.net/health-check?nocache=true'
+				let domain = serverNames[i]+'.siasky.net'
 				// Update for Dev Servers
 				if (serverNames[i].includes("dev")) {
-					url = 'https://'+serverNames[i]+'.siasky.dev/health-check?nocache=true'
+					domain = serverNames[i]+'.siasky.dev'
 				}
 				// Handle xyz server
 				if (serverNames[i].includes("xyz")) {
-					url = 'https://siasky.xyz/health-check?nocache=true'
+					domain = 'siasky.xyz'
 				}
+				url = 'https://'+domain+'/health-check?nocache=true'
 				fetch(url)
 				.then(res=>{
                     			var row = table.rows[i+1];
