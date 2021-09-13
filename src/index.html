@@ -95,7 +95,13 @@ table, th, td {
 						'us-la-2',
 						'us-la-3',
 						'us-or-1',
-						'us-or-2'
+						'us-or-2',
+						'Dev Servers',
+						'siasky.xyz',
+						'dev1',
+						'dev2',
+						'dev3',
+						'crap'
 					];
 			// Fill out the table with no data.
 			for (let i=0; i<serverNames.length; i++) {
@@ -104,7 +110,7 @@ table, th, td {
 					var cell1 = row.insertCell(0);
 					cell1.innerHTML = serverNames[i];
 					// Stop here for Zone Rows
-					if (serverNames[i].includes("Zone")) {
+					if (serverNames[i].includes("Zone") || serverNames[i].includes("Dev Servers")) {
 						cell1.style.display = "inline-block";	
 						cell1.style.width = "100px";	
 						cell1.style.border = "none";	
@@ -142,11 +148,20 @@ table, th, td {
 			// Fill out the lb information.
 			for (let i=0; i<serverNames.length; i++) {
 				// Skip Zone Rows
-				if (serverNames[i].includes("Zone")) {
+				if (serverNames[i].includes("Zone") || serverNames[i].includes("Dev Servers")) {
 					continue;
 				}
-				
-				url = 'https://'+serverNames[i]+'.siasky.net/health-check?nocache=true'
+				// Prod servers and crap server use siasky.net	
+				let domain = serverNames[i]+'.siasky.net'
+				// Update for Dev Servers
+				if (serverNames[i].includes("dev")) {
+					domain = serverNames[i]+'.siasky.dev'
+				}
+				// Handle xyz server
+				if (serverNames[i].includes("xyz")) {
+					domain = 'siasky.xyz'
+				}
+				url = 'https://'+domain+'/health-check?nocache=true'
 				fetch(url)
 				.then(res=>{
                     			var row = table.rows[i+1];
