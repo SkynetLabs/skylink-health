@@ -149,10 +149,15 @@
 
         var table = document.getElementById('serverStats');
 
+        // Define helper booleans       
+        let isZoneRow = serverNames[i].includes("Zone")
+        let isDevServersRow = serverNames[i].includes("Dev Servers")
+        let isTotalsRow = serverNames[i].includes("Total")
+
         // Fill out the lb information.
         for (let i = 0; i < serverNames.length; i++) {
-            // Skip Zone Rows
-            if (serverNames[i].includes("Zone") || serverNames[i].includes("Dev Servers")) {
+            // Skip Non-Server Rows
+            if (isZoneRow || isDevServersRow || isTotalsRow) {
                 continue;
             }
             // Prod servers and crap server use siasky.net	
@@ -166,6 +171,8 @@
                 domain = 'siasky.xyz'
             }
             url = 'https://' + domain + '/health-check?nocache=true'
+
+            // Fetch results
             fetch(url)
                 .then(res => {
                     var row = table.rows[i + 1];
@@ -217,8 +224,17 @@
                 })
         }
 
+        // Define Total Vars
+        let totalFiles, totalStorage, totalContractData, totalRepairData,
+            totalDLRate, totalULBaseRate, totalULChunkRate, totalRRRate, totalRWRate = 0
+
         // Fill out the table with information from the stats endpoint.
         for (let i = 0; i < serverNames.length; i++) {
+            // Skip Non-Server Rows
+            if (isZoneRow || isDevServersRow || isTotalsRow) {
+                continue;
+            }
+
             // Prod servers and crap server use siasky.net	
             let domain = serverNames[i] + '.siasky.net'
                 // Update for Dev Servers
@@ -230,6 +246,8 @@
                 domain = 'siasky.xyz'
             }
             url = 'https://' + domain + '/skynet/stats?nocache=true'
+
+            // Fetch results
             fetch(url)
                 .then(async res => {
                     try {
