@@ -215,16 +215,26 @@ table, th, td {
 
 			// Fill out the table with information from the stats endpoint.
 			for (let i=0; i<serverNames.length; i++) {
-				url = 'https://'+serverNames[i]+'.siasky.net/skynet/stats?nocache=true'
+				// Prod servers and crap server use siasky.net	
+				let domain = serverNames[i]+'.siasky.net'
+				// Update for Dev Servers
+				if (serverNames[i].includes("dev")) {
+					domain = serverNames[i]+'.siasky.dev'
+				}
+				// Handle xyz server
+				if (serverNames[i].includes("xyz")) {
+					domain = 'siasky.xyz'
+				}
+				url = 'https://'+domain+'/skynet/stats?nocache=true'
 				fetch(url)
-                .then(async res => {
-                    try {
-                        const data = await res.json();
-                        return data;
-                    } catch(error) {
-                        throw new Error(res.status)
-                    }
-                })
+    		                .then(async res => {
+          		          try {
+          		              const data = await res.json();
+          		              return data;
+          		          } catch(error) {
+          		              throw new Error(res.status)
+          		          }
+          		        })
 				.then(res=>{
 					console.log(res)
 					var row = table.rows[i+1];
