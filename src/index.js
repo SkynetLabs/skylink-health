@@ -161,7 +161,7 @@
                 // Update Total Row
                 let percentUp = (totalServers - totalInactive) / totalServers * 100;
                 let totalCell = totalRow.cells[3];
-                totalCell.innerHTML = (percentUp).toFixed(0);
+                totalCell.innerHTML = (percentUp).toLocaleString(undefined, { maximumFractionDigits: 0 });
                 if (percentUp >= 75) {
                     totalCell.style.color = 'green'
                 } else if (percentUp >= 50) {
@@ -198,7 +198,7 @@
                 // Update Total Row
                 let percentUp = (totalServers - totalAccountDown) / totalServers * 100;
                 let totalCell = totalRow.cells[4];
-                totalCell.innerHTML = (percentUp).toFixed(0);
+                totalCell.innerHTML = (percentUp).toLocaleString(undefined, { maximumFractionDigits: 0 });
                 if (percentUp >= 75) {
                     totalCell.style.color = 'green'
                 } else if (percentUp >= 50) {
@@ -230,7 +230,7 @@
                     totalInactive += 1;
                     let percentUp = (totalServers - totalInactive) / totalServers * 100;
                     let totalUpCell = totalRow.cells[3];
-                    totalUpCell.innerHTML = (percentUp).toFixed(0);
+                    totalUpCell.innerHTML = (percentUp).toLocaleString(undefined, { maximumFractionDigits: 0 });
                     if (percentUp >= 75) {
                         totalUpCell.style.color = 'green'
                     } else if (percentUp >= 50) {
@@ -243,7 +243,7 @@
                     totalAccountDown += 1;
                     let percentAccountUp = (totalServers - totalAccountDown) / totalServers * 100;
                     let totalAccountUpCell = totalRow.cells[4];
-                    totalAccountUpCell.innerHTML = (percentAccountUp).toFixed(0);
+                    totalAccountUpCell.innerHTML = (percentAccountUp).toLocaleString(undefined, { maximumFractionDigits: 0 });
                     if (percentAccountUp >= 75) {
                         totalAccountUpCell.style.color = 'green'
                     } else if (percentAccountUp >= 50) {
@@ -330,65 +330,65 @@
                 // Set the Download rate cell.
                 if (res.streambufferread15mdatapoints) {
                     var streamBufferRateCell = row.cells[6];
-                    streamBufferRateCell.innerHTML = (res.streambufferread15mdatapoints).toFixed(2);
+                    streamBufferRateCell.innerHTML = (res.streambufferread15mdatapoints).toLocaleString(undefined, { maximumFractionDigits: 2 });
 
                     // Update Totals
                     if (!ignoreTotals) {
                         totalDLRate += res.streambufferread15mdatapoints;
                         let totalCell = totalRow.cells[6];
-                        totalCell.innerHTML = (totalDLRate).toFixed(0);
+                        totalCell.innerHTML = (totalDLRate).toLocaleString(undefined, { maximumFractionDigits: 0 });
                     }
                 }
 
                 // Set the upload basesector rate cell.
                 if (res.basesectorupload15mdatapoints) {
                     var baseSectorRateCell = row.cells[7];
-                    baseSectorRateCell.innerHTML = (res.basesectorupload15mdatapoints).toFixed(2);
+                    baseSectorRateCell.innerHTML = (res.basesectorupload15mdatapoints).toLocaleString(undefined, { maximumFractionDigits: 2 });
 
                     // Update Totals
                     if (!ignoreTotals) {
                         totalULBaseRate += res.basesectorupload15mdatapoints;
                         let totalCell = totalRow.cells[7];
-                        totalCell.innerHTML = (totalULBaseRate).toFixed(0);
+                        totalCell.innerHTML = (totalULBaseRate).toLocaleString(undefined, { maximumFractionDigits: 0 });
                     }
                 }
 
                 // Set the upload chunk rate cell.
                 if (res.chunkupload15mdatapoints) {
                     var chunkUploadRateCell = row.cells[8];
-                    chunkUploadRateCell.innerHTML = (res.chunkupload15mdatapoints).toFixed(2);
+                    chunkUploadRateCell.innerHTML = (res.chunkupload15mdatapoints).toLocaleString(undefined, { maximumFractionDigits: 2 });
 
                     // Update Totals
                     if (!ignoreTotals) {
                         totalULChunkRate += res.chunkupload15mdatapoints;
                         let totalCell = totalRow.cells[8];
-                        totalCell.innerHTML = (totalULChunkRate).toFixed(0);
+                        totalCell.innerHTML = (totalULChunkRate).toLocaleString(undefined, { maximumFractionDigits: 0 });
                     }
                 }
 
                 // Set the regread rate cell.
                 if (res.registryread15mdatapoints) {
                     var regReadRateCell = row.cells[9];
-                    regReadRateCell.innerHTML = (res.registryread15mdatapoints).toFixed(2);
+                    regReadRateCell.innerHTML = (res.registryread15mdatapoints).toLocaleString(undefined, { maximumFractionDigits: 2 });
 
                     // Update Totals
                     if (!ignoreTotals) {
                         totalRRRate += res.registryread15mdatapoints;
                         let totalCell = totalRow.cells[9];
-                        totalCell.innerHTML = (totalRRRate).toFixed(0);
+                        totalCell.innerHTML = (totalRRRate).toLocaleString(undefined, { maximumFractionDigits: 0 });
                     }
                 }
 
                 // Set the regwrite rate cell.
                 if (res.registrywrite15mdatapoints) {
                     var regWriteRateCell = row.cells[10];
-                    regWriteRateCell.innerHTML = (res.registrywrite15mdatapoints).toFixed(2);
+                    regWriteRateCell.innerHTML = (res.registrywrite15mdatapoints).toLocaleString(undefined, { maximumFractionDigits: 2 });
 
                     // Update Totals
                     if (!ignoreTotals) {
                         totalRWRate += res.registrywrite15mdatapoints;
                         let totalCell = totalRow.cells[10];
-                        totalCell.innerHTML = (totalRWRate).toFixed(0);
+                        totalCell.innerHTML = (totalRWRate).toLocaleString(undefined, { maximumFractionDigits: 0 });
                     }
                 }
 
@@ -455,7 +455,7 @@
                 // set the scan duration cell.
                 if (res.systemhealthscandurationhours !== undefined) {
                     var healthCell = row.cells[16];
-                    var scanTime = res.systemhealthscandurationhours.toFixed(2);
+                    var scanTime = res.systemhealthscandurationhours.toLocaleString(undefined, { maximumFractionDigits: 2 });
                     if (scanTime == 0) {
                         healthCell.innerHTML = 'initializing';
                     } else {
@@ -472,7 +472,7 @@
                 // set the number of files on the server.
                 if (res.numfiles !== undefined) {
                     var filesCell = row.cells[17];
-                    filesCell.innerHTML = res.numfiles;
+                    filesCell.innerHTML = res.numfiles.toLocaleString(undefined, { maximumFractionDigits: 0 });
                     if (res.numfiles >= 1500000) {
                         // Color red if over 1.5 million
                         filesCell.style.color = 'red'
@@ -485,7 +485,7 @@
                     if (!ignoreTotals) {
                         totalFiles += res.numfiles;
                         let totalCell = totalRow.cells[17];
-                        totalCell.innerHTML = (totalFiles).toFixed(0);
+                        totalCell.innerHTML = (totalFiles).toLocaleString(undefined, { maximumFractionDigits: 0 });
                     }
                 }
 
@@ -493,13 +493,13 @@
                 if (res.storage !== undefined) {
                     var storageCell = row.cells[18];
                     let storageTBs = res.storage / 1000 / 1000 / 1000 / 1000;
-                    storageCell.innerHTML = (storageTBs).toFixed(2);
+                    storageCell.innerHTML = (storageTBs).toLocaleString(undefined, { maximumFractionDigits: 2 });
 
                     // Update Totals
                     if (!ignoreTotals) {
                         totalStorage += storageTBs;
                         let totalCell = totalRow.cells[18];
-                        totalCell.innerHTML = (totalStorage).toFixed(0);
+                        totalCell.innerHTML = (totalStorage).toLocaleString(undefined, { maximumFractionDigits: 0 });
                     }
                 }
 
@@ -507,7 +507,7 @@
                 if (res.contractstorage !== undefined) {
                     var contractCell = row.cells[19];
                     let contractTB = res.contractstorage / 1000 / 1000 / 1000 / 1000;
-                    var contractData = (contractTB).toFixed(2)
+                    var contractData = (contractTB).toLocaleString(undefined, { maximumFractionDigits: 2 })
                     contractCell.innerHTML = contractData;
                     // If the Server has more that 100TB of contract data set it to orange
                     if (contractData > 100) {
@@ -518,7 +518,7 @@
                     if (!ignoreTotals) {
                         totalContractData += contractTB;
                         let totalCell = totalRow.cells[19];
-                        totalCell.innerHTML = (totalContractData).toFixed(0);
+                        totalCell.innerHTML = (totalContractData).toLocaleString(undefined, { maximumFractionDigits: 0 });
                     }
                 }
 
@@ -551,14 +551,14 @@
                 // Set the max storage price cell
                 if (res.allowancestatus) {
                     var maxStoragePriceCell = row.cells[22];
-                    maxStoragePriceCell.innerHTML = (res.maxstorageprice * 1000 * 1000 * 1000 * 1000 * 6 * 24 * 30 / 1000000000000000000000000).toFixed(2);
+                    maxStoragePriceCell.innerHTML = (res.maxstorageprice * 1000 * 1000 * 1000 * 1000 * 6 * 24 * 30 / 1000000000000000000000000).toLocaleString(undefined, { maximumFractionDigits: 2 });
                 }
 
                 // Set the repair value.
                 if (res.repair !== undefined) {
                     var repairCell = row.cells[23];
                     let repairTB = res.repair / 1000 / 1000 / 1000 / 1000;
-                    var repairData = (repairTB).toFixed(2)
+                    var repairData = (repairTB).toLocaleString(undefined, { maximumFractionDigits: 2 })
                     repairCell.innerHTML = repairData;
                     // If the Server has more that 1TB of repair data set it to orange
                     if (repairData > 1) {
@@ -569,14 +569,14 @@
                     if (!ignoreTotals) {
                         totalRepairData += repairTB;
                         let totalCell = totalRow.cells[23];
-                        totalCell.innerHTML = (totalRepairData).toFixed(0);
+                        totalCell.innerHTML = (totalRepairData).toLocaleString(undefined, { maximumFractionDigits: 0 });
                     }
                 }
 
                 // Set the stuck chunks value.
                 if (res.stuckchunks !== undefined) {
                     var stuckChunksCell = row.cells[24];
-                    stuckChunksCell.innerHTML = (res.stuckchunks);
+                    stuckChunksCell.innerHTML = (res.stuckchunks).toLocaleString(undefined, { maximumFractionDigits: 0 });
                     if (res.stuckchunks > 0) {
                         stuckChunksCell.style.color = 'red'
                     }
@@ -585,7 +585,7 @@
                     if (!ignoreTotals) {
                         totalStuckChunks += res.stuckchunks;
                         let totalCell = totalRow.cells[24];
-                        totalCell.innerHTML = (totalStuckChunks);
+                        totalCell.innerHTML = (totalStuckChunks).toLocaleString(undefined, { maximumFractionDigits: 0 });
                         if (totalStuckChunks > 0) {
                             totalCell.style.color = 'red'
                         }
