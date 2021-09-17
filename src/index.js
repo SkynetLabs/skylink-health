@@ -161,7 +161,7 @@
                 // Update Total Row
                 let percentUp = (totalServers - totalInactive) / totalServers * 100;
                 let totalCell = totalRow.cells[3];
-                totalCell.innerHTML = (percentUp).toLocaleString(undefined, { maximumFractionDigits: 0 });
+                totalCell.innerHTML = (percentUp).toLocaleString(undefined, { maximumFractionDigits: 0 }) + "%";
                 if (percentUp >= 75) {
                     totalCell.style.color = 'green'
                 } else if (percentUp >= 50) {
@@ -198,7 +198,7 @@
                 // Update Total Row
                 let percentUp = (totalServers - totalAccountDown) / totalServers * 100;
                 let totalCell = totalRow.cells[4];
-                totalCell.innerHTML = (percentUp).toLocaleString(undefined, { maximumFractionDigits: 0 });
+                totalCell.innerHTML = (percentUp).toLocaleString(undefined, { maximumFractionDigits: 0 }) + "%";
                 if (percentUp >= 75) {
                     totalCell.style.color = 'green'
                 } else if (percentUp >= 50) {
@@ -230,7 +230,7 @@
                     totalInactive += 1;
                     let percentUp = (totalServers - totalInactive) / totalServers * 100;
                     let totalUpCell = totalRow.cells[3];
-                    totalUpCell.innerHTML = (percentUp).toLocaleString(undefined, { maximumFractionDigits: 0 });
+                    totalUpCell.innerHTML = (percentUp).toLocaleString(undefined, { maximumFractionDigits: 0 }) + "%";
                     if (percentUp >= 75) {
                         totalUpCell.style.color = 'green'
                     } else if (percentUp >= 50) {
@@ -243,7 +243,7 @@
                     totalAccountDown += 1;
                     let percentAccountUp = (totalServers - totalAccountDown) / totalServers * 100;
                     let totalAccountUpCell = totalRow.cells[4];
-                    totalAccountUpCell.innerHTML = (percentAccountUp).toLocaleString(undefined, { maximumFractionDigits: 0 });
+                    totalAccountUpCell.innerHTML = (percentAccountUp).toLocaleString(undefined, { maximumFractionDigits: 0 }) + "%";
                     if (percentAccountUp >= 75) {
                         totalAccountUpCell.style.color = 'green'
                     } else if (percentAccountUp >= 50) {
