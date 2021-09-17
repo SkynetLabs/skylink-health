@@ -57,6 +57,12 @@
         'dev3',
         'crap'
     ];
+
+    // Define Total Servers
+    //
+    // Minus 11, 6 title rows and 5 dev servers
+    let totalServers = serverNames.length - 11
+
     // Fill out the table with no data.
     for (let i = 0; i < serverNames.length; i++) {
         var table = document.getElementById('serverStats');
@@ -99,6 +105,11 @@
 
     var table = document.getElementById('serverStats');
 
+    // Define Total Vars
+    let totalInactive = 0;
+    let totalAccountDown = 0;
+    let totalRow = table.rows[1];
+
     // Fill out the lb information.
     for (let i = 0; i < serverNames.length; i++) {
         // Skip Non-Server Rows
@@ -108,14 +119,21 @@
         if (isZoneRow || isDevServersRow || isTotalsRow) {
             continue;
         }
+
+        // Define helper for dev servers
+        let isDevServer = serverNames[i].includes("dev");
+        let isXYZServer = serverNames[i].includes("xyz");
+        let isCrapServer = serverNames[i].includes("crap");
+        let ignoreTotals = isDevServer || isXYZServer || isCrapServer;
+
         // Prod servers and crap server use siasky.net	
         let domain = serverNames[i] + '.siasky.net'
             // Update for Dev Servers
-        if (serverNames[i].includes("dev")) {
+        if (isDevServer) {
             domain = serverNames[i] + '.siasky.dev'
         }
         // Handle xyz server
-        if (serverNames[i].includes("xyz")) {
+        if (isXYZServer) {
             domain = 'siasky.xyz'
         }
         url = 'https://' + domain + '/health-check?nocache=true'
@@ -130,10 +148,28 @@
                 if (res.status > 200) {
                     activeCell.innerHTML = 'No';
                     activeCell.style.color = 'red';
+
+                    // Update Totals
+                    if (!ignoreTotals) {
+                        totalInactive += 1;
+                    }
                 } else {
                     activeCell.innerHTML = 'Yes';
                     activeCell.style.color = 'green';
                 }
+
+                // Update Total Row
+                let percentUp = (totalServers - totalInactive) / totalServers * 100;
+                let totalCell = totalRow.cells[3];
+                totalCell.innerHTML = (percentUp).toFixed(0);
+                if (percentUp >= 75) {
+                    totalCell.style.color = 'green'
+                } else if (percentUp >= 50) {
+                    totalCell.style.color = 'orange'
+                } else {
+                    totalCell.style.color = 'red'
+                }
+
                 return res
             })
             .then(res => res.json())
@@ -151,8 +187,26 @@
                     } else {
                         accountCell.innerHTML = 'down';
                         accountCell.style.color = 'red';
+
+                        // Update Totals
+                        if (!ignoreTotals) {
+                            totalAccountDown += 1;
+                        }
                     }
                 }
+
+                // Update Total Row
+                let percentUp = (totalServers - totalAccountDown) / totalServers * 100;
+                let totalCell = totalRow.cells[4];
+                totalCell.innerHTML = (percentUp).toFixed(0);
+                if (percentUp >= 75) {
+                    totalCell.style.color = 'green'
+                } else if (percentUp >= 50) {
+                    totalCell.style.color = 'orange'
+                } else {
+                    totalCell.style.color = 'red'
+                }
+
                 return res
             })
             .catch(err => {
@@ -169,12 +223,49 @@
                 // Set the account cell.
                 accountCell.innerHTML = 'Unknown';
                 accountCell.style.color = 'red';
+
+                // Ignore Dev servers
+                if (!ignoreTotals) {
+                    // Update Inactive Totals
+                    totalInactive += 1;
+                    let percentUp = (totalServers - totalInactive) / totalServers * 100;
+                    let totalUpCell = totalRow.cells[3];
+                    totalUpCell.innerHTML = (percentUp).toFixed(0);
+                    if (percentUp >= 75) {
+                        totalUpCell.style.color = 'green'
+                    } else if (percentUp >= 50) {
+                        totalUpCell.style.color = 'orange'
+                    } else {
+                        totalUpCell.style.color = 'red'
+                    }
+
+                    // Update Account Down Totals
+                    totalAccountDown += 1;
+                    let percentAccountUp = (totalServers - totalAccountDown) / totalServers * 100;
+                    let totalAccountUpCell = totalRow.cells[4];
+                    totalAccountUpCell.innerHTML = (percentAccountUp).toFixed(0);
+                    if (percentAccountUp >= 75) {
+                        totalAccountUpCell.style.color = 'green'
+                    } else if (percentAccountUp >= 50) {
+                        totalAccountUpCell.style.color = 'orange'
+                    } else {
+                        totalAccountUpCell.style.color = 'red'
+                    }
+                }
             })
     }
 
     // Define Total Vars
-    let totalFiles, totalStorage, totalContractData, totalRepairData,
-        totalDLRate, totalULBaseRate, totalULChunkRate, totalRRRate, totalRWRate
+    let totalDLRate = 0;
+    let totalULBaseRate = 0;
+    let totalULChunkRate = 0;
+    let totalRRRate = 0;
+    let totalRWRate = 0;
+    let totalFiles = 0;
+    let totalStorage = 0;
+    let totalContractData = 0;
+    let totalRepairData = 0;
+    let totalStuckChunks = 0;
 
     // Fill out the table with information from the stats endpoint.
     for (let i = 0; i < serverNames.length; i++) {
@@ -186,14 +277,20 @@
             continue;
         }
 
+        // Define helper for dev servers
+        let isDevServer = serverNames[i].includes("dev");
+        let isXYZServer = serverNames[i].includes("xyz");
+        let isCrapServer = serverNames[i].includes("crap");
+        let ignoreTotals = isDevServer || isXYZServer || isCrapServer;
+
         // Prod servers and crap server use siasky.net	
         let domain = serverNames[i] + '.siasky.net'
             // Update for Dev Servers
-        if (serverNames[i].includes("dev")) {
+        if (isDevServer) {
             domain = serverNames[i] + '.siasky.dev'
         }
         // Handle xyz server
-        if (serverNames[i].includes("xyz")) {
+        if (isXYZServer) {
             domain = 'siasky.xyz'
         }
         url = 'https://' + domain + '/skynet/stats?nocache=true'
@@ -233,32 +330,66 @@
                 // Set the Download rate cell.
                 if (res.streambufferread15mdatapoints) {
                     var streamBufferRateCell = row.cells[6];
-                    let dlRate = (res.streambufferread15mdatapoints).toFixed(2)
-                    streamBufferRateCell.innerHTML = dlRate;
+                    streamBufferRateCell.innerHTML = (res.streambufferread15mdatapoints).toFixed(2);
+
+                    // Update Totals
+                    if (!ignoreTotals) {
+                        totalDLRate += res.streambufferread15mdatapoints;
+                        let totalCell = totalRow.cells[6];
+                        totalCell.innerHTML = (totalDLRate).toFixed(0);
+                    }
                 }
 
                 // Set the upload basesector rate cell.
                 if (res.basesectorupload15mdatapoints) {
                     var baseSectorRateCell = row.cells[7];
                     baseSectorRateCell.innerHTML = (res.basesectorupload15mdatapoints).toFixed(2);
+
+                    // Update Totals
+                    if (!ignoreTotals) {
+                        totalULBaseRate += res.basesectorupload15mdatapoints;
+                        let totalCell = totalRow.cells[7];
+                        totalCell.innerHTML = (totalULBaseRate).toFixed(0);
+                    }
                 }
 
                 // Set the upload chunk rate cell.
                 if (res.chunkupload15mdatapoints) {
                     var chunkUploadRateCell = row.cells[8];
                     chunkUploadRateCell.innerHTML = (res.chunkupload15mdatapoints).toFixed(2);
+
+                    // Update Totals
+                    if (!ignoreTotals) {
+                        totalULChunkRate += res.chunkupload15mdatapoints;
+                        let totalCell = totalRow.cells[8];
+                        totalCell.innerHTML = (totalULChunkRate).toFixed(0);
+                    }
                 }
 
                 // Set the regread rate cell.
                 if (res.registryread15mdatapoints) {
                     var regReadRateCell = row.cells[9];
                     regReadRateCell.innerHTML = (res.registryread15mdatapoints).toFixed(2);
+
+                    // Update Totals
+                    if (!ignoreTotals) {
+                        totalRRRate += res.registryread15mdatapoints;
+                        let totalCell = totalRow.cells[9];
+                        totalCell.innerHTML = (totalRRRate).toFixed(0);
+                    }
                 }
 
                 // Set the regwrite rate cell.
                 if (res.registrywrite15mdatapoints) {
                     var regWriteRateCell = row.cells[10];
                     regWriteRateCell.innerHTML = (res.registrywrite15mdatapoints).toFixed(2);
+
+                    // Update Totals
+                    if (!ignoreTotals) {
+                        totalRWRate += res.registrywrite15mdatapoints;
+                        let totalCell = totalRow.cells[10];
+                        totalCell.innerHTML = (totalRWRate).toFixed(0);
+                    }
                 }
 
                 // Set the stream buffer read time cell.
@@ -350,22 +481,44 @@
                         filesCell.style.color = 'orange'
                     }
 
+                    // Update Totals
+                    if (!ignoreTotals) {
+                        totalFiles += res.numfiles;
+                        let totalCell = totalRow.cells[17];
+                        totalCell.innerHTML = (totalFiles).toFixed(0);
+                    }
                 }
 
                 // Set the amount of storage on the server.
                 if (res.storage !== undefined) {
                     var storageCell = row.cells[18];
-                    storageCell.innerHTML = (res.storage / 1000 / 1000 / 1000 / 1000).toFixed(2);
+                    let storageTBs = res.storage / 1000 / 1000 / 1000 / 1000;
+                    storageCell.innerHTML = (storageTBs).toFixed(2);
+
+                    // Update Totals
+                    if (!ignoreTotals) {
+                        totalStorage += storageTBs;
+                        let totalCell = totalRow.cells[18];
+                        totalCell.innerHTML = (totalStorage).toFixed(0);
+                    }
                 }
 
                 // Set the total contract data for the server.
                 if (res.contractstorage !== undefined) {
                     var contractCell = row.cells[19];
-                    var contractData = (res.contractstorage / 1000 / 1000 / 1000 / 1000).toFixed(2)
+                    let contractTB = res.contractstorage / 1000 / 1000 / 1000 / 1000;
+                    var contractData = (contractTB).toFixed(2)
                     contractCell.innerHTML = contractData;
                     // If the Server has more that 100TB of contract data set it to orange
                     if (contractData > 100) {
                         contractCell.style.color = 'orange'
+                    }
+
+                    // Update Totals
+                    if (!ignoreTotals) {
+                        totalContractData += contractTB;
+                        let totalCell = totalRow.cells[19];
+                        totalCell.innerHTML = (totalContractData).toFixed(0);
                     }
                 }
 
@@ -404,11 +557,19 @@
                 // Set the repair value.
                 if (res.repair !== undefined) {
                     var repairCell = row.cells[23];
-                    var repairData = (res.repair / 1000 / 1000 / 1000 / 1000).toFixed(2)
+                    let repairTB = res.repair / 1000 / 1000 / 1000 / 1000;
+                    var repairData = (repairTB).toFixed(2)
                     repairCell.innerHTML = repairData;
                     // If the Server has more that 1TB of repair data set it to orange
                     if (repairData > 1) {
                         repairCell.style.color = 'orange'
+                    }
+
+                    // Update Totals
+                    if (!ignoreTotals) {
+                        totalRepairData += repairTB;
+                        let totalCell = totalRow.cells[23];
+                        totalCell.innerHTML = (totalRepairData).toFixed(0);
                     }
                 }
 
@@ -416,6 +577,19 @@
                 if (res.stuckchunks !== undefined) {
                     var stuckChunksCell = row.cells[24];
                     stuckChunksCell.innerHTML = (res.stuckchunks);
+                    if (res.stuckchunks > 0) {
+                        stuckChunksCell.style.color = 'red'
+                    }
+
+                    // Update Totals
+                    if (!ignoreTotals) {
+                        totalStuckChunks += res.stuckchunks;
+                        let totalCell = totalRow.cells[24];
+                        totalCell.innerHTML = (totalStuckChunks);
+                        if (totalStuckChunks > 0) {
+                            totalCell.style.color = 'red'
+                        }
+                    }
                 }
                 // Set the uptime cell.
                 if (res.uptime) {
