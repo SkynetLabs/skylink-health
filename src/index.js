@@ -127,6 +127,7 @@
         row.insertCell(23);
         row.insertCell(24);
         row.insertCell(25);
+        row.insertCell(26);
     }
 
     var table = document.getElementById("serverStats");
