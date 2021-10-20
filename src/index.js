@@ -699,16 +699,15 @@
                 // Set the Max Health value.
                 if (res.maxhealthpercentage !== undefined) {
                     var maxHealthCell = row.cells[24];
-                    var maxHealthPercentage = res.maxHealthPercentage * 100;
-                    maxHealthCell.innerHTML = maxHealthPercentage.toLocaleString(
+                    maxHealthCell.innerHTML = res.maxhealthpercentage.toLocaleString(
                         undefined, {
                             maximumFractionDigits: 0,
                         }
                     );
-                    if (maxHealthPercentage < 75) {
+                    if (res.maxhealthpercentage < 75) {
                         maxHealthCell.style.color = "orange";
                     }
-                    if (maxHealthPercentage < 50) {
+                    if (res.maxhealthpercentage < 50) {
                         maxHealthCell.style.color = "red";
                     }
                 }
