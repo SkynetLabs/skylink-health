@@ -703,7 +703,7 @@
                         undefined, {
                             maximumFractionDigits: 0,
                         }
-                    );
+                    ) + "%";
                     if (res.maxhealthpercentage < 75) {
                         maxHealthCell.style.color = "orange";
                     }
