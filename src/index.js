@@ -127,6 +127,7 @@
         row.insertCell(23);
         row.insertCell(24);
         row.insertCell(25);
+        row.insertCell(26);
     }
 
     var table = document.getElementById("serverStats");
@@ -695,9 +696,25 @@
                     }
                 }
 
+                // Set the Max Health value.
+                if (res.maxhealthpercentage !== undefined) {
+                    var maxHealthCell = row.cells[24];
+                    maxHealthCell.innerHTML = res.maxhealthpercentage.toLocaleString(
+                        undefined, {
+                            maximumFractionDigits: 0,
+                        }
+                    ) + "%";
+                    if (res.maxhealthpercentage < 75) {
+                        maxHealthCell.style.color = "orange";
+                    }
+                    if (res.maxhealthpercentage < 50) {
+                        maxHealthCell.style.color = "red";
+                    }
+                }
+
                 // Set the stuck chunks value.
                 if (res.stuckchunks !== undefined) {
-                    var stuckChunksCell = row.cells[24];
+                    var stuckChunksCell = row.cells[25];
                     stuckChunksCell.innerHTML = res.stuckchunks.toLocaleString(
                         undefined, {
                             maximumFractionDigits: 0,
@@ -707,10 +724,10 @@
                         stuckChunksCell.style.color = "red";
                     }
 
-                    // Update Totals
+                    // Stuck Chunk Totals
                     if (!ignoreTotals) {
                         totalStuckChunks += res.stuckchunks;
-                        let totalCell = totalRow.cells[24];
+                        let totalCell = totalRow.cells[25];
                         totalCell.innerHTML = totalStuckChunks.toLocaleString(undefined, {
                             maximumFractionDigits: 0,
                         });
@@ -721,7 +738,7 @@
                 }
                 // Set the uptime cell.
                 if (res.uptime) {
-                    var uptimeCell = row.cells[25];
+                    var uptimeCell = row.cells[26];
                     uptime = 0.0;
                     t = "";
                     c = "";
