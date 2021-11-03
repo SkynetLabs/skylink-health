@@ -480,17 +480,22 @@
                 // Set the stream buffer read time cell.
                 if (res.streambufferread15mp99ms) {
                     var uploadCell = row.cells[11];
-                    uploadCell.innerHTML =
-                        res.streambufferread15mp99ms +
-                        "ms / " +
-                        res.streambufferread15mp999ms +
-                        "ms";
+                    var p99 = res.streambufferread15mp99ms + "ms";
+                    var p999 = res.streambufferread15mp999ms + "ms";
                     if (res.basesectorupload15mp99ms < 2000) {
-                        uploadCell.style.color = "green";
+                        p99 = "<span style='color: green'>" + p99 + "</span>";
+                    }
+                    if (res.basesectorupload15mp99ms > 2000) {
+                        p99 = "<span style='color: red'>" + p99 + "</span>";
+                    }
+                    if (res.basesectorupload15mp999ms < 2000) {
+                        p999 = "<span style='color: green'>" + p999 + "</span>";
                     }
                     if (res.basesectorupload15mp999ms > 5000) {
-                        uploadCell.style.color = "red";
+                        p999 = "<span style='color: red'>" + p999 + "</span>";
                     }
+                    uploadCell.innerHTML =
+                        p99 + " / " + p999;
                 }
 
                 // Set the base sector upload time cell.
