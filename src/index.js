@@ -479,79 +479,117 @@
 
                 // Set the stream buffer read time cell.
                 if (res.streambufferread15mp99ms) {
-                    var uploadCell = row.cells[11];
-                    uploadCell.innerHTML =
-                        res.streambufferread15mp99ms +
-                        "ms / " +
-                        res.streambufferread15mp999ms +
-                        "ms";
-                    if (res.basesectorupload15mp99ms < 2000) {
-                        uploadCell.style.color = "green";
+                    var downloadCell = row.cells[11];
+                    var p99 = res.streambufferread15mp99ms + "ms";
+                    var p999 = res.streambufferread15mp999ms + "ms";
+                    // Green if under 2 seconds (2000ms)
+                    if (res.streambufferread15mp99ms < 2000) {
+                        p99 = "<span style='color: green'>" + p99 + "</span>";
                     }
-                    if (res.basesectorupload15mp999ms > 5000) {
-                        uploadCell.style.color = "red";
+                    if (res.streambufferread15mp999ms < 2000) {
+                        p999 = "<span style='color: green'>" + p999 + "</span>";
                     }
+                    // Red if over 5 seconds (5000ms)
+                    if (res.streambufferread15mp99ms > 5000) {
+                        p99 = "<span style='color: red'>" + p99 + "</span>";
+                    }
+                    if (res.streambufferread15mp999ms > 5000) {
+                        p999 = "<span style='color: red'>" + p999 + "</span>";
+                    }
+                    downloadCell.innerHTML =
+                        p99 + " / " + p999;
                 }
 
                 // Set the base sector upload time cell.
                 if (res.basesectorupload15mp99ms) {
                     var uploadCell = row.cells[12];
-                    uploadCell.innerHTML =
-                        res.basesectorupload15mp99ms +
-                        "ms / " +
-                        res.basesectorupload15mp999ms +
-                        "ms";
+                    var p99 = res.basesectorupload15mp99ms + "ms";
+                    var p999 = res.basesectorupload15mp999ms + "ms";
+                    // Green if under 2 seconds (2000ms)
                     if (res.basesectorupload15mp99ms < 2000) {
-                        uploadCell.style.color = "green";
+                        p99 = "<span style='color: green'>" + p99 + "</span>";
+                    }
+                    if (res.basesectorupload15mp999ms < 2000) {
+                        p999 = "<span style='color: green'>" + p999 + "</span>";
+                    }
+                    // Red if over 5 seconds (5000ms)
+                    if (res.basesectorupload15mp99ms > 5000) {
+                        p99 = "<span style='color: red'>" + p99 + "</span>";
                     }
                     if (res.basesectorupload15mp999ms > 5000) {
-                        uploadCell.style.color = "red";
+                        p999 = "<span style='color: red'>" + p999 + "</span>";
                     }
+                    uploadCell.innerHTML =
+                        p99 + " / " + p999;
                 }
 
                 // Set the upload chunk time cell.
                 if (res.chunkupload15mp99ms) {
                     var uploadCell = row.cells[13];
-                    uploadCell.innerHTML =
-                        res.chunkupload15mp99ms + "ms / " + res.chunkupload15mp999ms + "ms";
+                    var p99 = res.chunkupload15mp99ms + "ms";
+                    var p999 = res.chunkupload15mp999ms + "ms";
+                    // Green if under 2 seconds (2000ms)
                     if (res.chunkupload15mp99ms < 2000) {
-                        uploadCell.style.color = "green";
+                        p99 = "<span style='color: green'>" + p99 + "</span>";
+                    }
+                    if (res.chunkupload15mp999ms < 2000) {
+                        p999 = "<span style='color: green'>" + p999 + "</span>";
+                    }
+                    // Red if over 5 seconds (5000ms)
+                    if (res.chunkupload15mp99ms > 5000) {
+                        p99 = "<span style='color: red'>" + p99 + "</span>";
                     }
                     if (res.chunkupload15mp999ms > 5000) {
-                        uploadCell.style.color = "red";
+                        p999 = "<span style='color: red'>" + p999 + "</span>";
                     }
+                    uploadCell.innerHTML =
+                        p99 + " / " + p999;
                 }
 
                 // Set the regread time cell.
                 if (res.registryread15mp99ms) {
                     var regReadCell = row.cells[14];
-                    regReadCell.innerHTML =
-                        res.registryread15mp99ms +
-                        "ms / " +
-                        res.registryread15mp999ms +
-                        "ms";
+                    var p99 = res.registryread15mp99ms + "ms";
+                    var p999 = res.registryread15mp999ms + "ms";
+                    // Green if under 500ms
+                    if (res.registryread15mp99ms < 500) {
+                        p99 = "<span style='color: green'>" + p99 + "</span>";
+                    }
                     if (res.registryread15mp999ms < 500) {
-                        regReadCell.style.color = "green";
+                        p999 = "<span style='color: green'>" + p999 + "</span>";
+                    }
+                    // Red if over 2 seconds (2000ms)
+                    if (res.registryread15mp99ms > 2000) {
+                        p99 = "<span style='color: red'>" + p99 + "</span>";
                     }
                     if (res.registryread15mp999ms > 2000) {
-                        regReadCell.style.color = "red";
+                        p999 = "<span style='color: red'>" + p999 + "</span>";
                     }
+                    regReadCell.innerHTML =
+                        p99 + " / " + p999;
                 }
 
                 // Set the regwrite time cell.
                 if (res.registrywrite15mp99ms) {
                     var regWriteCell = row.cells[15];
-                    regWriteCell.innerHTML =
-                        res.registrywrite15mp99ms +
-                        "ms / " +
-                        res.registrywrite15mp999ms +
-                        "ms";
+                    var p99 = res.registrywrite15mp99ms + "ms";
+                    var p999 = res.registrywrite15mp999ms + "ms";
+                    // Green if under 500ms
+                    if (res.registrywrite15mp99ms < 500) {
+                        p99 = "<span style='color: green'>" + p99 + "</span>";
+                    }
                     if (res.registrywrite15mp999ms < 500) {
-                        regWriteCell.style.color = "green";
+                        p999 = "<span style='color: green'>" + p999 + "</span>";
+                    }
+                    // Red if over 2 seconds (2000ms)
+                    if (res.registrywrite15mp99ms > 2000) {
+                        p99 = "<span style='color: red'>" + p99 + "</span>";
                     }
                     if (res.registrywrite15mp999ms > 2000) {
-                        regWriteCell.style.color = "red";
+                        p999 = "<span style='color: red'>" + p999 + "</span>";
                     }
+                    regWriteCell.innerHTML =
+                        p99 + " / " + p999;
                 }
 
                 // set the scan duration cell.
