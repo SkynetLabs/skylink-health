@@ -486,7 +486,7 @@
                         p99 = "<span style='color: green'>" + p99 + "</span>";
                     }
                     if (res.basesectorupload15mp99ms > 2000) {
-                        p99 = "<span style='color: red'>" + p99 + "</span>";
+                        p99 = "<span style='color: yellow'>" + p99 + "</span>";
                     }
                     if (res.basesectorupload15mp999ms < 2000) {
                         p999 = "<span style='color: green'>" + p999 + "</span>";
