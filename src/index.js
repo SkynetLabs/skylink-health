@@ -494,7 +494,7 @@
                         p99 = "<span style='color: red'>" + p99 + "</span>";
                     }
                     if (res.streambufferread15mp999ms > 5000) {
-                        p999 = "<span style='color: green'>" + p999 + "</span>";
+                        p999 = "<span style='color: red'>" + p999 + "</span>";
                     }
                     downloadCell.innerHTML =
                         p99 + " / " + p999;
@@ -517,7 +517,7 @@
                         p99 = "<span style='color: red'>" + p99 + "</span>";
                     }
                     if (res.basesectorupload15mp999ms > 5000) {
-                        p999 = "<span style='color: green'>" + p999 + "</span>";
+                        p999 = "<span style='color: red'>" + p999 + "</span>";
                     }
                     uploadCell.innerHTML =
                         p99 + " / " + p999;
@@ -540,7 +540,7 @@
                         p99 = "<span style='color: red'>" + p99 + "</span>";
                     }
                     if (res.chunkupload15mp999ms > 5000) {
-                        p999 = "<span style='color: green'>" + p999 + "</span>";
+                        p999 = "<span style='color: red'>" + p999 + "</span>";
                     }
                     uploadCell.innerHTML =
                         p99 + " / " + p999;
@@ -563,7 +563,7 @@
                         p99 = "<span style='color: red'>" + p99 + "</span>";
                     }
                     if (res.registryread15mp999ms > 2000) {
-                        p999 = "<span style='color: green'>" + p999 + "</span>";
+                        p999 = "<span style='color: red'>" + p999 + "</span>";
                     }
                     regReadCell.innerHTML =
                         p99 + " / " + p999;
@@ -586,7 +586,7 @@
                         p99 = "<span style='color: red'>" + p99 + "</span>";
                     }
                     if (res.registrywrite15mp999ms > 2000) {
-                        p999 = "<span style='color: green'>" + p999 + "</span>";
+                        p999 = "<span style='color: red'>" + p999 + "</span>";
                     }
                     regWriteCell.innerHTML =
                         p99 + " / " + p999;
