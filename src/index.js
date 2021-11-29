@@ -192,6 +192,15 @@
           activeCell.innerHTML = "Down!";
           activeCell.style.color = "red";
 
+          if (serverNames[i] === "eu-fin-8") {
+            activeCell.innerHTML = "Matt Fix Me!";
+          }
+          if (serverNames[i] === "us-pa-1") {
+            activeCell.innerHTML = "Matt Fix Me!";
+          }
+          if (serverNames[i] === "us-pa-2") {
+            activeCell.innerHTML = "Matt Fix Me!";
+          }
           // Update Totals
           if (!ignoreTotals) {
             totalInactive += 1;
