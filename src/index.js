@@ -273,6 +273,15 @@
         // Set the active cell.
         activeCell.innerHTML = "Unresponsive";
         activeCell.style.color = "red";
+        if (serverNames[i] === "eu-fin-8") {
+          activeCell.innerHTML = "Matt Fix Me!";
+        }
+        if (serverNames[i] === "us-pa-1") {
+          activeCell.innerHTML = "Matt Fix Me!";
+        }
+        if (serverNames[i] === "us-pa-2") {
+          activeCell.innerHTML = "Matt Fix Me!";
+        }
 
         // Set the account cell.
         accountCell.innerHTML = "Unknown";
