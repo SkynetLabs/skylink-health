@@ -1,0 +1,27 @@
+{
+  "short_name": "siasky.tool",
+  "name": "Skynet Server Dashboard",
+  "description": "Highlevel health overview of skynet servers",
+  "skylink": "https://0404riebu6gkqj61tivtepb3019dcs3l36q6tqq4hrunkii86b2mgm8.siasky.net/",
+  "icons": [
+    {
+      "src": "favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo/icon-192x192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo/icon-512x512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
