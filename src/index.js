@@ -88,6 +88,13 @@
   // Minus 11, 6 title rows and 5 dev servers
   let totalServers = serverNames.length - 11;
 
+  // Define Load Thresholds
+  let downloadLoadThreshold = 25000;
+  let uploadLoadThreshold = 1000;
+  let uploadChunkLoadThreshold = 1000;
+  let registryReadLoadThreshold = 25000;
+  let registryWriteLoadThreshold = 10000;
+
   // Fill out the table with no data.
   for (let i = 0; i < serverNames.length; i++) {
     var table = document.getElementById("serverStats");
@@ -226,6 +233,11 @@
         if (res.disabled) {
           activeCell.innerHTML = "Disabled: " + res.disabled;
           activeCell.style.color = "orange";
+
+          // Update Totals
+          if (!ignoreTotals) {
+            totalInactive += 1;
+          }
         }
 
         // Set the account cell.
@@ -273,9 +285,6 @@
         // Set the active cell.
         activeCell.innerHTML = "Unresponsive";
         activeCell.style.color = "red";
-        if (serverNames[i] === "eu-fin-8") {
-          activeCell.innerHTML = "Matt Fix Me!";
-        }
         if (serverNames[i] === "us-pa-1") {
           activeCell.innerHTML = "Matt Fix Me!";
         }
@@ -407,6 +416,11 @@
               maximumFractionDigits: 2,
             });
 
+          // Color to show high load
+          if (res.streambufferread15mdatapoints >= downloadLoadThreshold) {
+            streamBufferRateCell.style.color = "red";
+          }
+
           // Update Totals
           if (!ignoreTotals) {
             totalDLRate += res.streambufferread15mdatapoints;
@@ -424,6 +438,11 @@
             res.basesectorupload15mdatapoints.toLocaleString(undefined, {
               maximumFractionDigits: 2,
             });
+
+          // Color to show high load
+          if (res.basesectorupload15mdatapoints >= uploadLoadThreshold) {
+            baseSectorRateCell.style.color = "red";
+          }
 
           // Update Totals
           if (!ignoreTotals) {
@@ -443,6 +462,11 @@
               maximumFractionDigits: 2,
             });
 
+          // Color to show high load
+          if (res.chunkupload15mdatapoints >= uploadChunkLoadThreshold) {
+            chunkUploadRateCell.style.color = "red";
+          }
+
           // Update Totals
           if (!ignoreTotals) {
             totalULChunkRate += res.chunkupload15mdatapoints;
@@ -461,6 +485,11 @@
               maximumFractionDigits: 2,
             });
 
+          // Color to show high load
+          if (res.registryread15mdatapoints >= registryReadLoadThreshold) {
+            regReadRateCell.style.color = "red";
+          }
+
           // Update Totals
           if (!ignoreTotals) {
             totalRRRate += res.registryread15mdatapoints;
@@ -478,6 +507,11 @@
             res.registrywrite15mdatapoints.toLocaleString(undefined, {
               maximumFractionDigits: 2,
             });
+
+          // Color to show high load
+          if (res.registrywrite15mdatapoints >= registryWriteLoadThreshold) {
+            regWriteRateCell.style.color = "red";
+          }
 
           // Update Totals
           if (!ignoreTotals) {
