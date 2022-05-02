@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-    <title>Skynet Server Dashboard</title>
+    <title>Skynet Health Dashboard</title>
 
     <link rel="manifest" href="manifest.json" />
     <style>
@@ -14,36 +14,17 @@
   </head>
 
   <body>
+    <div>
+      <input id="skylink" name="skylink" placeholder="Enter Skylink" />
+      <button onClick="getHealth()">Get health</button>
+    </div>
+
     <!-- Define Table Columns -->
     <table id="serverStats">
       <tr>
         <th>Name</th>
-        <th>IP Addr</th>
-        <th>Commit</th>
-        <th>Active</th>
-        <th>Accounts</th>
-        <th>Alerts</th>
-        <th>DL / 15min</th>
-        <th>UL / 15min</th>
-        <th>UL Chunk / 15min</th>
-        <th>RegR / 15min</th>
-        <th>RegW / 15min</th>
-        <th>DL Time (p99/999)</th>
-        <th>UL Base Time (p99/999)</th>
-        <th>UL Chunk Time (p99/999)</th>
-        <th>RegRead Time (p99/999)</th>
-        <th>RegWrite Time (p99/999)</th>
-        <th>Health Scan Time (hours)</th>
-        <th>Files</th>
-        <th>Storage (TB)</th>
-        <th>Contracts (TB)</th>
-        <th>Wallet</th>
-        <th>Allowance</th>
-        <th>Max Storage Price (/TB/Mo)</th>
-        <th>Repair (TB)</th>
-        <th>Max Health</th>
-        <th>Stuck Chunks</th>
-        <th>Uptime</th>
+        <th>Base Sector Redundancy</th>
+        <th>Fanout Redundancy</th>
       </tr>
     </table>
 
