@@ -158,7 +158,7 @@ async function getHealth() {
         console.log(`Error fetching health for '${serverNames[i]}'`, err);
 
         var row = table.rows[i + 1];
-        var activeCell = row.cells[3];
+        var activeCell = row.cells[1];
 
         // Set the active cell.
         activeCell.innerHTML = "Unresponsive";
